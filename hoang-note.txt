@@ -1,0 +1,7 @@
+https://confluence.atlassian.com/doc/hierarchical-file-system-attachment-storage-704578486.html
+
+Dung atatchment version ver003 thay cho v4 => disable v4
+
+edit bin/setenv.sh, add OPTS
+
+CATALINA_OPTS="-Datlassian.darkfeature.confluence.disable-attachments-ver004=true ${CATALINA_OPTS}"
