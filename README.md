@@ -5,11 +5,10 @@
 [README](README.md) | [中文文档](README_zh.md)
 
 
-+ Long Term Support Version: v9.12.5
-+ Latest Version: v9.14.1
++ Long Term Support Version(arm64&amd64): v9.12.16
++ Latest Version(arm64&amd64): v9.17.5
++ Beta Version(arm64&amd64): v10.3.1
 + [The new way](https://github.com/haxqer/jira/tree/build-your-own) of use allows you to conveniently upgrade and modify parameters on your own, and it offers convenient support for HTTPS (thanks to [xsharp](https://github.com/xsharp)).
-
-+ [Arm Version](https://github.com/haxqer/jira#arm)
 
 New Confluence/Jira releases support only Data Center licenses. To generate a Data Center licenses, add the `-d` parameter.
 
@@ -53,7 +52,7 @@ passwd=123456
 - start jira
 
 ```
-docker volume create jira_home_data && docker network create jira-network && docker run -p 8080:8080 -v jira_home_data:/var/jira --network jira-network --name jira-srv -e TZ='Asia/Shanghai' haxqer/jira:9.14.1
+docker volume create jira_home_data && docker network create jira-network && docker run -p 8080:8080 -v jira_home_data:/var/jira --network jira-network --name jira-srv -e TZ='Asia/Shanghai' haxqer/jira:9.17.5
 ```
 
 - config your own db:
@@ -90,35 +89,6 @@ docker exec jira-srv java -jar /var/agent/atlassian-agent.jar \
 
 4. Paste your license
 
-## How to upgrade
-
-```shell
-cd jira && git pull
-docker pull haxqer/jira:rm && docker-compose stop
-docker-compose rm
-```
-
-enter `y`, then start server
-
-```shell
-docker-compose up -d
-```
-
-## Arm
-Not completely tested.
-Tested machines:
-+ Mac mini(M1,2020)
-
-Thanks to:
-+ [odidev](https://github.com/odidev) for the Arm image.
-
-```
-git clone https://github.com/haxqer/jira.git \
-    && cd jira \
-    && git checkout rm && cd lts_arm \
-    && docker-compose pull \
-    && docker-compose up
-```
 
 ## Hack Jira Service Management(jsm) Plugin
 

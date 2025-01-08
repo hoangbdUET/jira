@@ -7,10 +7,10 @@
 
 [README](README.md) | [中文文档](README_zh.md)
 
-+ Long Term Support Version: v9.12.5
-+ Latest Version: v9.14.1
++ Long Term Support Version(支持 arm64&amd64): v9.12.16
++ Latest Version(支持 arm64&amd64): v9.17.5
++ Beta Version(支持 arm64&amd64): v10.3.1
 + [新的使用方式](https://github.com/haxqer/jira/tree/build-your-own) ，您可方便自行升级、修改各参数，支持https (感谢 [xsharp](https://github.com/xsharp)).
-+ [Arm Version](https://github.com/haxqer/jira/blob/rm/README_zh.md#arm)
 
 新的Confluence/Jira版本仅支持数据中心许可证
 
@@ -54,7 +54,7 @@
 - 启动 jira
 
 ```
-    docker volume create jira_home_data && docker network create jira-network && docker run -p 8080:8080 -v jira_home_data:/var/jira --network jira-network --name jira-srv -e TZ='Asia/Shanghai' haxqer/jira:9.14.1
+    docker volume create jira_home_data && docker network create jira-network && docker run -p 8080:8080 -v jira_home_data:/var/jira --network jira-network --name jira-srv -e TZ='Asia/Shanghai' haxqer/jira:9.17.5
 ```
 
 - 然后配置你的数据库
@@ -64,6 +64,7 @@
 
 ```
 docker exec jira-srv java -jar /var/agent/atlassian-agent.jar \
+    -d \
     -p jira \
     -m Hello@world.com \
     -n Hello@world.com \
@@ -82,6 +83,7 @@ docker exec jira-srv java -jar /var/agent/atlassian-agent.jar \
 
 ```
 docker exec jira-srv java -jar /var/agent/atlassian-agent.jar \
+    -d \
     -p eu.softwareplant.biggantt \
     -m Hello@world.com \
     -n Hello@world.com \
@@ -94,6 +96,7 @@ docker exec jira-srv java -jar /var/agent/atlassian-agent.jar \
 例如:
 ```
 docker exec jira-srv java -jar /var/agent/atlassian-agent.jar \
+    -d \
     -p eu.softwareplant.biggantt \
     -m Hello@world.com \
     -n Hello@world.com \
@@ -104,53 +107,6 @@ docker exec jira-srv java -jar /var/agent/atlassian-agent.jar \
 4. 最后粘贴生成的 licence
 
 
-## `Datacenter` license
-
-添加 `-d` 参数即可生成 `datacenter` license
-
-```
-docker exec jira-srv java -jar /var/agent/atlassian-agent.jar \
-    -d \
-    -p jira \
-    -m Hello@world.com \
-    -n Hello@world.com \
-    -o your-org \
-    -s you-server-id-xxxx
-```
-
-
-## 如何升级
-
-```shell
-cd jira && git pull
-docker pull haxqer/jira:rm && docker-compose stop
-docker-compose rm
-```
-
-输入 `y` 之后重启 jira:
-
-```shell
-docker-compose up -d
-```
-
-## Arm
-已经测试过的机器:
-+ Mac mini(M1,2020)
-
-感谢:
-+ [odidev](https://github.com/odidev) 提供的 arm image.
-
-```
-    git clone https://github.com/haxqer/jira.git \
-        && cd jira \
-        && git checkout rm && cd lts_arm \
-        && docker-compose pull \
-        && docker-compose up
-```
-
-
-
-
 ## 破解 Jira Service Management(jsm)
 
 感谢:
@@ -158,6 +114,7 @@ docker-compose up -d
 
 ```
 docker exec jira-srv java -jar /var/agent/atlassian-agent.jar \
+    -d \
     -p jsm \
     -m Hello@world.com \
     -n Hello@world.com \
